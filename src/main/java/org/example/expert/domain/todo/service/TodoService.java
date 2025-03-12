@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional  // 이 부분에서 readOnly = true 조건을 제거한다.
 public class TodoService {
 
     private final TodoRepository todoRepository;

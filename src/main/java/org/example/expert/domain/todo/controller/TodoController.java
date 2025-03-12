@@ -10,6 +10,7 @@ import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
 import org.example.expert.domain.todo.service.TodoService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,7 +19,13 @@ public class TodoController {
 
     private final TodoService todoService;
 
+    /*
+    * Read-Only 트랜잭션에서 저장을 하려고 해서 오류가 발생한다.
+    * 확인 해보니 Service 계층에서 readOnly = true를 설정하고 있다.
+    * 그 부분을 수정하면 해결된다.
+    * */
     @PostMapping("/todos")
+    @Transactional
     public ResponseEntity<TodoSaveResponse> saveTodo(
             @Auth AuthUser authUser,
             @Valid @RequestBody TodoSaveRequest todoSaveRequest
