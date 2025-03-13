@@ -47,6 +47,12 @@ public class CommentService {
         );
     }
 
+
+    /*
+    * 현재 코드에서는 댓글 목록을 조회한 뒤에
+    * 이어서 각 댓글의 getUser를 호출하여 fetch join 되지 않으면 댓글 수 만큼
+    * 추가 쿼리가 발생한다.
+    * */
     public List<CommentResponse> getComments(long todoId) {
         List<Comment> commentList = commentRepository.findByTodoIdWithUser(todoId);
 
